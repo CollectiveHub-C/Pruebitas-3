@@ -572,7 +572,8 @@ const payload = Object.assign({}, item.datos, {
   evento:'creado'
 });
         console.log('URL:', POWER_AUTOMATE_URL);
-console.log('PAYLOAD:', payload);
+console.log('CANTIDAD=', payload.cantidad, 'TIPO=', typeof payload.cantidad);
+console.log(JSON.stringify(payload, null, 2));
 
 const resp = await fetch(POWER_AUTOMATE_URL, {
   method:'POST',
