@@ -897,7 +897,7 @@ function currentFormData(folio='PENDIENTE', fechaLegible=null){
     cliente: document.getElementById('clienteInput').value.trim(),
     concepto: conceptoInput.value,
     terceroPagador: document.getElementById('terceroPagadorInput').value.trim(),
-    cantidad: document.getElementById('cantidadInput').value,
+    cantidad: Number(document.getElementById('cantidadInput').value),
     recibe: document.getElementById('recibeInput').value.trim(),
     marcaId: selectedMarca ? selectedMarca.id : null,
     marcaNombre: selectedMarca ? selectedMarca.nombre : '',
