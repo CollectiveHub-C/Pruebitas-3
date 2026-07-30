@@ -567,7 +567,10 @@ async function sincronizarPendientes(){
     for(const item of pendientes){
       let ok = false;
       try{
-        const payload = Object.assign({}, item.datos, { evento:'creado' });
+const payload = Object.assign({}, item.datos, {
+  cantidad: Number(item.datos.cantidad),
+  evento:'creado'
+});
         console.log('URL:', POWER_AUTOMATE_URL);
 console.log('PAYLOAD:', payload);
 
