@@ -568,11 +568,26 @@ async function sincronizarPendientes(){
       let ok = false;
       try{
         const payload = Object.assign({}, item.datos, { evento:'creado' });
-        const resp = await fetch(POWER_AUTOMATE_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        console.log('URL:', POWER_AUTOMATE_URL);
+console.log('PAYLOAD:', payload);
+
+const resp = await fetch(POWER_AUTOMATE_URL, {
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body: JSON.stringify(payload)
+});
+
+console.log('STATUS:', resp.status);
+console.log('OK:', resp.ok);
+
+const txt = await resp.text();
+console.log('RESPUESTA:', txt);
         if(resp.ok) ok = true;
         else if(resp.status === 429) await new Promise(r=>setTimeout(r,120000));
         else if(resp.status >= 500) await new Promise(r=>setTimeout(r,30000));
-      }catch(e){ /* sin Internet o falla de red: se reintenta en el siguiente ciclo */ }
+      }catch(e){
+  console.error('ERROR POWER AUTOMATE:', e);
+}
       if(ok) await outboxEliminar(item.uuid);
       else break; // no saturar: si este falló, los demás esperan al siguiente ciclo
     }
